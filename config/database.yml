@@ -83,3 +83,20 @@ production:
   database: BookmarkChallenge_production
   username: BookmarkChallenge
   password: <%= ENV['BOOKMARKCHALLENGE_DATABASE_PASSWORD'] %>
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: bookmark
+  host: localhost
+  pool: 5
+  username: postgres
+  password: root
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: bookmark_test
+  pool: 5
+  username: postgres
+  password: root
