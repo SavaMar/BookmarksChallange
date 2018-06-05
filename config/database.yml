@@ -97,6 +97,7 @@ test:
   adapter: postgresql
   encoding: unicode
   database: bookmark_test
+  host: localhost
   pool: 5
   username: postgres
   password: root

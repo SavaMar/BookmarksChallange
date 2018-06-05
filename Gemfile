@@ -11,11 +11,14 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.7'
 
 gem 'awesome_rails_console'
+gem 'rspec-rails'
+gem 'ransack'
 
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
+  gem "factory_bot_rails"
 end
 
 group :development do

@@ -15,4 +15,9 @@ class Bookmark < ApplicationRecord
     chars = ['0'..'9', 'A'..'Z', 'a'..'z'].map { |range| range.to_a }.flatten
     self.short_url = 6.times.map { chars.sample }.join
   end
+
+  # def self.search(query)
+  #   where(["title  like ? or 
+  #           url like ?", "%#{query}%","%#{query}%"])
+  # end
 end

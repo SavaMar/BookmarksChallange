@@ -6,6 +6,10 @@ module Api::V1
     def index
       @bookmarks = Bookmark.all
 
+      if params[:q]
+        @bookmarks = Bookmark.search(params[:query]).order("created_at DESC")
+      end
+
       render json: @bookmarks
     end
 
@@ -19,7 +23,7 @@ module Api::V1
       @bookmark = Bookmark.new(bookmark_params)
 
       if @bookmark.save
-        render json: @bookmark, status: :created, location: @bookmark
+        render json: @bookmark, status: :created
       else
         render json: @bookmark.errors, status: :unprocessable_entity
       end
@@ -40,12 +44,10 @@ module Api::V1
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
       def set_bookmark
         @bookmark = Bookmark.find(params[:id])
       end
 
-      # Only allow a trusted parameter "white list" through.
       def bookmark_params
         params.require(:bookmark).permit(:website_id, :title, :url, :short_url)
       end
