@@ -16,8 +16,9 @@ class Bookmark < ApplicationRecord
     self.short_url = 6.times.map { chars.sample }.join
   end
 
-  # def self.search(query)
-  #   where(["title  like ? or 
-  #           url like ?", "%#{query}%","%#{query}%"])
-  # end
+  def self.search(query)
+    query.downcase
+    where(["lower(title)  like ? or 
+            lower(url) like ?", "%#{query}%","%#{query}%"])
+  end
 end

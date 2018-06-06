@@ -12,13 +12,14 @@ gem 'puma', '~> 3.7'
 
 gem 'awesome_rails_console'
 gem 'rspec-rails'
-gem 'ransack'
+# gem 'ransack'
 
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
   gem "factory_bot_rails"
+  gem 'foreman'
 end
 
 group :development do
