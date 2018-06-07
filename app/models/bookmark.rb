@@ -6,6 +6,9 @@ class Bookmark < ApplicationRecord
   before_save :set_website, :generate_short_url
 
   validates :short_url, uniqueness: true, presence: false
+  validates :title, :url, presence: true
+
+  # before_save :set_website, if: :url_changed?
 
   private
   def set_website

@@ -84,7 +84,7 @@ class BookmarksContainer extends Component {
   }
 
   removeBookmark(id) {
-        axios.delete( '/api/v1/bookmarks/' + id )
+        axios.delete( 'http://localhost:3001/api/v1/bookmarks/' + id )
         .then(response => {
             const bookmarks = this.state.bookmarks.filter(
                 bookmark => bookmark.id !== id

@@ -41,6 +41,11 @@ module Api::V1
 
     def destroy
       @bookmark.destroy
+      if @bookmark.destroy
+        head :no_content, status: :ok
+      else
+        render json: @bookmark.errors, status: :unprocessable_entity
+      end  
     end
 
     private
