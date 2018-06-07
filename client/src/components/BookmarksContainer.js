@@ -5,7 +5,8 @@ import Bookmark from './Bookmark';
 import EditBookmarkForm from './EditBookmarkForm';
 import Header from './Header'
 
-import { Row, Col,FormGroup,
+import { 
+Row, Col, FormGroup,
 ControlLabel,
 FormControl,
 HelpBlock, Table } from 'react-bootstrap';
@@ -131,7 +132,6 @@ class BookmarksContainer extends Component {
                 <th>Website</th>
                 <th>Link</th>
                 <th>Short Link</th>
-                <th>Tags</th>
                 <th>Buttons</th>
               </tr>
             </thead>

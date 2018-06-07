@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormControl, FormGroup, Button, Col } from 'react-bootstrap';
 class EditBookmarkForm extends Component {
     constructor(props) {
         super(props)
@@ -21,17 +22,21 @@ class EditBookmarkForm extends Component {
     render(){
         return(
             <form onSubmit={this.handleSubmit}>
-            <input  name="title"
+            <FormGroup controlId="formInlineName">
+              <FormControl name="title"
                     type="text"
                     placeholder="Title..."
                     value={this.state.title}
-                    onChange={this.handleChange} />
-            <input  name="url"
+                    onChange={this.handleChange}/>
+            </FormGroup>{' '}
+            <FormGroup controlId="formInlineEmail">
+              <FormControl name="url"
                     type="text"
                     placeholder="Url..."
                     value={this.state.url}
-                    onChange={this.handleChange} />
-            <button>Update Bookmark</button>
+                    onChange={this.handleChange}/>
+            </FormGroup>{' '}
+            <Button type="submit">Update Bookmark</Button>
         </form>  
         )
     }
