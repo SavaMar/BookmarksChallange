@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Bookmark from './Bookmark';
-import NewBookmarkForm from './NewBookmarkForm';
+// import NewBookmarkForm from './NewBookmarkForm';
 import EditBookmarkForm from './EditBookmarkForm';
-// import SearchBar from './Search'
+import Header from './Header'
+
+import { Row, Col,FormGroup,
+ControlLabel,
+FormControl,
+HelpBlock, Table } from 'react-bootstrap';
 
 class BookmarksContainer extends Component {
   constructor(props){
@@ -18,7 +23,6 @@ class BookmarksContainer extends Component {
     this.editingBookmark = this.editingBookmark.bind(this)
     this.editBookmark = this.editBookmark.bind(this)
     this.removeBookmark = this.removeBookmark.bind(this)
-    this.curentSite = this.curentSite.bind(this)
   }
 
   componentDidMount() {
@@ -30,19 +34,6 @@ class BookmarksContainer extends Component {
       })
     })
     .catch(error => console.log(error))
-  }
-
-  curentSite(id) {
-    axios.get(`http://localhost:3001/api/v1/websites/${id}`)
-    .then(response => {
-      // console.log(response)
-      console.log(response.data)
-      this.setState({
-        website: response.data
-      })
-    })
-    .catch(error => console.log(error))
-    // return(this.website)
   }
 
   addNewBookmark(title, url) {
@@ -119,33 +110,54 @@ class BookmarksContainer extends Component {
 
   render() {
     return (
-      <div className="bookmarks-container">
-        <form>
-          <input
-            placeholder="Search for..."
-            ref={input => this.search = input}
-            onChange={this.handleInputChange}
-          />
-        </form>
-        {this.state.bookmarks.map( bookmark => {
-                if ( this.state.editingBookmarkId === bookmark.id ) {
-                    return (<EditBookmarkForm 
-                                bookmark={bookmark} 
-                                key={bookmark.id} 
-                                editBookmark={this.editBookmark} 
-                    />)
-                } else {
-                    return (<Bookmark 
-                                bookmark={bookmark} 
-                                key={bookmark.id} 
-                                onRemoveBookmark={this.removeBookmark}
-                                editingBookmark={this.editingBookmark} 
-                                onWebsite={this.curentSite}
-                    />)
-                }
-            })}bookmarks
-        <NewBookmarkForm onNewBookmark={this.addNewBookmark} />
-      </div>
+      <Row className="show-grid">
+        <Header onNewBookmark={this.addNewBookmark}/>
+        <Col xs={12} md={12}>
+          <form>
+            <input type="text" 
+              className="form-control"
+              placeholder="Search for..."
+              ref={input => this.search = input}
+              onChange={this.handleInputChange}
+            />
+          </form>
+          </Col>
+          <Col xs={12} md={12}>
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Website</th>
+                <th>Link</th>
+                <th>Short Link</th>
+                <th>Tags</th>
+                <th>Buttons</th>
+              </tr>
+            </thead>
+            <tbody>
+            {this.state.bookmarks.map( bookmark => {
+                    if ( this.state.editingBookmarkId === bookmark.id ) {
+                        return (<EditBookmarkForm 
+                                    bookmark={bookmark} 
+                                    key={bookmark.id} 
+                                    editBookmark={this.editBookmark} 
+                        />)
+                    } else {
+                        return (
+                          <Bookmark 
+                                    bookmark={bookmark} 
+                                    key={bookmark.id} 
+                                    onRemoveBookmark={this.removeBookmark}
+                                    editingBookmark={this.editingBookmark} 
+                                    onWebsite={this.curentSite}
+                        />)
+                    }
+                })}
+              </tbody>
+            </Table>
+          </Col>
+      </Row>
     )
   }
 }

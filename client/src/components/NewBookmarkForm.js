@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navbar, NavItem, Nav, FormGroup, FormControl, Button, ControlLabel, Col } from 'react-bootstrap';
 
 const NewBookmarkForm = ({onNewBookmark = f => f}) => {
     let title, url
@@ -11,15 +12,23 @@ const NewBookmarkForm = ({onNewBookmark = f => f}) => {
     }
 
     return (
+      <Col xs={12} md={12}>
         <form onSubmit={submit}>
-            <input  ref={input => title = input}
-                    type="text"
-                    placeholder="Title..." required />
-            <input  ref={input => url = input}
-                    type="text"
-                    placeholder="URL..." required />
-            <button>Add Bookmark</button>
-        </form>
+          <Col xs={5} md={5}>
+            <FormGroup controlId="formInlineName">
+              <FormControl type="text" placeholder="Title" inputRef={input => title = input}/>
+            </FormGroup>{' '}
+          </Col>
+          <Col xs={5} md={5}>
+            <FormGroup controlId="formInlineEmail">
+              <FormControl type="text" placeholder="url" inputRef={input => url = input}/>
+            </FormGroup>{' '}
+          </Col>
+          <Col xs={2} md={2}>
+            <Button type="submit">Add Bookmark</Button>
+          </Col>
+          </form>
+      </Col>
     )
 }
 

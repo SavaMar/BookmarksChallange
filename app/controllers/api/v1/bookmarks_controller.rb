@@ -6,7 +6,7 @@ module Api::V1
       if params[:q].present?
         @bookmarks = Bookmark.search(params[:q])
       else
-        @bookmarks = Bookmark.all
+        @bookmarks = Bookmark.all.order('id DESC')
       end
 
       render json: @bookmarks, include: [:tags, :website]
@@ -18,14 +18,15 @@ module Api::V1
     end
 
     def show
-      render json: @bookmark
+      render json: @bookmark, include: [:tags, :website]
     end
 
     def create
       @bookmark = Bookmark.new(bookmark_params)
 
       if @bookmark.save
-        render json: @bookmark, status: :created
+        # binding.pry
+        render json: @bookmark, include: [:tags, :website], status: :created
       else
         render json: @bookmark.errors, status: :unprocessable_entity
       end
@@ -33,7 +34,7 @@ module Api::V1
 
     def update
       if @bookmark.update(bookmark_params)
-        render json: @bookmark
+        render json: @bookmark, include: [:tags, :website]
       else
         render json: @bookmark.errors, status: :unprocessable_entity
       end
