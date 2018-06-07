@@ -10,6 +10,7 @@ class BookmarksContainer extends Component {
     super(props)
     this.state = {
       bookmarks: [],
+      website: [],
       query: '',
       editingBookmarkId: null
     }
@@ -17,6 +18,7 @@ class BookmarksContainer extends Component {
     this.editingBookmark = this.editingBookmark.bind(this)
     this.editBookmark = this.editBookmark.bind(this)
     this.removeBookmark = this.removeBookmark.bind(this)
+    this.curentSite = this.curentSite.bind(this)
   }
 
   componentDidMount() {
@@ -30,12 +32,26 @@ class BookmarksContainer extends Component {
     .catch(error => console.log(error))
   }
 
+  curentSite(id) {
+    axios.get(`http://localhost:3001/api/v1/websites/${id}`)
+    .then(response => {
+      // console.log(response)
+      console.log(response.data)
+      this.setState({
+        website: response.data
+      })
+    })
+    .catch(error => console.log(error))
+    // return(this.website)
+  }
+
   addNewBookmark(title, url) {
     axios.post( 'http://localhost:3001/api/v1/bookmarks', { bookmark: {title, url} })
     .then(response => {
         console.log(response)
         const bookmarks = [ ...this.state.bookmarks, response.data ]
         this.setState({bookmarks})
+
     })
     .catch(error => {
         console.log(error)
@@ -124,6 +140,7 @@ class BookmarksContainer extends Component {
                                 key={bookmark.id} 
                                 onRemoveBookmark={this.removeBookmark}
                                 editingBookmark={this.editingBookmark} 
+                                onWebsite={this.curentSite}
                     />)
                 }
             })}bookmarks

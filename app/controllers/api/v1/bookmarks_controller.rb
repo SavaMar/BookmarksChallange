@@ -1,6 +1,6 @@
 module Api::V1
   class BookmarksController < ApplicationController
-    before_action :set_bookmark, only: [:show, :update, :destroy]
+    before_action :set_bookmark, only: [:show, :update, :tags, :destroy]
 
     def index
       if params[:q].present?
@@ -9,7 +9,12 @@ module Api::V1
         @bookmarks = Bookmark.all
       end
 
-      render json: @bookmarks
+      render json: @bookmarks, include: [:tags, :website]
+    end
+
+     # GET /flashcards/1/tags
+    def tags
+      render json: @bookmark.tags
     end
 
     def show

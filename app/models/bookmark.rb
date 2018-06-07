@@ -1,5 +1,7 @@
 class Bookmark < ApplicationRecord
   belongs_to :website, optional: true
+  has_many :taggings
+  has_many :tags, through: :taggings
 
   before_save :set_website, :generate_short_url
 

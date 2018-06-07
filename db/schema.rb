@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180604092635) do
+ActiveRecord::Schema.define(version: 20180606132722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,21 @@ ActiveRecord::Schema.define(version: 20180604092635) do
     t.index ["website_id"], name: "index_bookmarks_on_website_id"
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "bookmark_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bookmark_id"], name: "index_taggings_on_bookmark_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "websites", force: :cascade do |t|
     t.string "top_url"
     t.datetime "created_at", null: false
@@ -32,4 +47,6 @@ ActiveRecord::Schema.define(version: 20180604092635) do
   end
 
   add_foreign_key "bookmarks", "websites"
+  add_foreign_key "taggings", "bookmarks"
+  add_foreign_key "taggings", "tags"
 end

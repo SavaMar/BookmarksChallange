@@ -2,7 +2,6 @@ module Api::V1
   class WebsitesController < ApplicationController
     before_action :set_website, only: [:show, :update, :destroy]
 
-    # GET /websites
     def index
       @websites = Website.all
 
