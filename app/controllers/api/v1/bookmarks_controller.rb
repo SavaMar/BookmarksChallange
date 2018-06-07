@@ -6,7 +6,7 @@ module Api::V1
       if params[:q].present?
         @bookmarks = Bookmark.search(params[:q])
       else
-        @bookmarks = Bookmark.all.order('id DESC')
+        @bookmarks = Bookmark.all.order('id ASC')
       end
 
       render json: @bookmarks, include: [:tags, :website]
